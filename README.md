@@ -1,4 +1,4 @@
-# <img src="https://github.com/user-attachments/assets/afc2eded-42d8-489b-8c95-61f662329f45" alt="Luminova" width="100"> Luminova
+# <img src="https://github.com/user-attachments/assets/afc2eded-42d8-489b-8c95-61f662329f45" alt="Luminova" width="100"> Luminova: Image Pixel Sorter
 
 ### A program written in Java that sorts pixels in an image creating a nice effect and also capable of making animated like (GIF) glitch effects
 
