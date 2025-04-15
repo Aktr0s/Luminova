@@ -8,6 +8,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 
+
 import java.io.IOException;
 import java.util.Objects;
 
@@ -39,8 +40,7 @@ public class GUI extends Application {
         alert.setHeaderText(null);
         alert.setContentText(message);
         Scene alertScene = alert.getDialogPane().getScene();
-        alertScene.getStylesheets().add(Objects.requireNonNull(
-                primaryStage.getScene().getStylesheets().getFirst()));
+        alertScene.getStylesheets().add(Objects.requireNonNull(primaryStage.getScene().getStylesheets().get(0)));
 
         alert.showAndWait();
     }

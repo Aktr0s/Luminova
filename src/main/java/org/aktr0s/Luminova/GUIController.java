@@ -47,18 +47,18 @@ public class GUIController {
         final double[] offset = {maxThreshold.getValue() - minThreshold.getValue()};
 
         // Update offset whenever min or max sliders are changed manually
-        minThreshold.valueProperty().addListener((_, _, newValue) -> {
+        minThreshold.valueProperty().addListener((observable, oldValue, newValue) -> {
             offset[0] = maxThreshold.getValue() - newValue.doubleValue();
             moveThreshold.setValue(minThreshold.getValue() + (offset[0] / 2)); // Update move slider
         });
 
-        maxThreshold.valueProperty().addListener((_, _, newValue) -> {
+        maxThreshold.valueProperty().addListener((observable, oldValue, newValue) -> {
             offset[0] = newValue.doubleValue() - minThreshold.getValue();
             moveThreshold.setValue(minThreshold.getValue() + (offset[0] / 2)); // Update move slider
         });
 
         // Move slider shifts both min and max while keeping the gap
-        moveThreshold.valueProperty().addListener((_, _, newValue) -> {
+        moveThreshold.valueProperty().addListener((observable,oldValue, newValue) -> {
             double moveValue = newValue.doubleValue();
             double newMin = moveValue - (offset[0] / 2);
             double newMax = moveValue + (offset[0] / 2);
@@ -76,30 +76,30 @@ public class GUIController {
             maxThreshold.setValue(newMax);
         });
 
-        minThreshold.setOnMouseReleased(_ -> onAnythingChanged());
-        maxThreshold.setOnMouseReleased(_ -> onAnythingChanged());
-        moveThreshold.setOnMouseReleased(_ -> onAnythingChanged());
+        minThreshold.setOnMouseReleased(event -> onAnythingChanged());
+        maxThreshold.setOnMouseReleased(event -> onAnythingChanged());
+        moveThreshold.setOnMouseReleased(event -> onAnythingChanged());
 
 
-        lumaOption.setOnAction(_ -> onAnythingChanged());
-        hueOption.setOnAction(_ -> onAnythingChanged());
-        redOption.setOnAction(_ -> onAnythingChanged());
-        greenOption.setOnAction(_ -> onAnythingChanged());
-        blueOption.setOnAction(_ -> onAnythingChanged());
-        resetButton.setOnAction(_ -> {
+        lumaOption.setOnAction(event -> onAnythingChanged());
+        hueOption.setOnAction(event -> onAnythingChanged());
+        redOption.setOnAction(event -> onAnythingChanged());
+        greenOption.setOnAction(event -> onAnythingChanged());
+        blueOption.setOnAction(event -> onAnythingChanged());
+        resetButton.setOnAction(event -> {
             resetValues();
             onAnythingChanged();
         });
 
-        ttbOption.setOnAction(_ -> onAnythingChanged());
-        bttOption.setOnAction(_ -> onAnythingChanged());
-        ltrOption.setOnAction(_ -> onAnythingChanged());
-        rtlOption.setOnAction(_ -> onAnythingChanged());
+        ttbOption.setOnAction(event -> onAnythingChanged());
+        bttOption.setOnAction(event -> onAnythingChanged());
+        ltrOption.setOnAction(event -> onAnythingChanged());
+        rtlOption.setOnAction(event -> onAnythingChanged());
 
-        reverseCheck.setOnAction(_ -> onAnythingChanged());
-        spanOffsetCheck.setOnAction(_ -> onAnythingChanged());
+        reverseCheck.setOnAction(event -> onAnythingChanged());
+        spanOffsetCheck.setOnAction(event -> onAnythingChanged());
 
-        importButton.setOnAction(_ -> {
+        importButton.setOnAction(event -> {
             resetValues();
             imageHolder.setImage(ImageHandler.loadImage(null));
             if (imageHolder.getImage() != null) {
@@ -114,17 +114,17 @@ public class GUIController {
         });
 
 
-        exportButton.setOnAction(_ -> {
+        exportButton.setOnAction(event -> {
             ImageHandler.exportImage(null, imageHolder.getModifiedImage());
         });
 
 
-        previewModeToggleButton.setOnAction(_ -> {
+        previewModeToggleButton.setOnAction(event -> {
             checkMaskPreview();
             onAnythingChanged();
         });
 
-        exportGIFButton.setOnAction(_ -> {
+        exportGIFButton.setOnAction(event -> {
             checkValues();
             if (spanOffsetEnabled) {
                 GIFHandler.imageModifyGIF(imageHolder,gifFrameNumber,gifTimeNumber,minThres,maxThres,sortMode,maskReverseEnabled,sortDirection,spanOffsetEnabled,spanBarSize,exportProgressIndicator,indicatorLabel,this);
@@ -134,10 +134,10 @@ public class GUIController {
         });
 
 
-        regenerateImage.setOnAction(_ -> onAnythingChanged());
+        regenerateImage.setOnAction(event -> onAnythingChanged());
 
-        spanSize.setOnMouseReleased(_ -> onAnythingChanged());
-        spanSize.valueProperty().addListener((_,_,_) ->  spanSizeTextField.setText(Integer.toString((int) spanSize.getValue())));
+        spanSize.setOnMouseReleased(event -> onAnythingChanged());
+        spanSize.valueProperty().addListener((observable,oldValue,newValue) ->  spanSizeTextField.setText(Integer.toString((int) spanSize.getValue())));
 
 
     }
